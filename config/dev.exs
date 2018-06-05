@@ -41,12 +41,16 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :exchat, Exchat.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "exchat_dev",
-  pool_size: 10
+# config :exchat, Exchat.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: "postgres",
+#   password: "postgres",
+#   database: "exchat_dev",
+#   pool_size: 10
 
 # DO NOT use this in prod
+config :exchat, Exchat.Repo,
+  adapter: Sqlite.Ecto2,
+  database: "exchat.sqlite3"
+
 config :exchat, Exchat.User, jwt_secret: "super_secret"

@@ -1,11 +1,14 @@
 defmodule Exchat.MessageChannel do
   use Exchat.Web, :channel
+  require Logger
   alias Exchat.{Message, Repo, Channel, MessageService, UnreadService, EventChannel}
 
   @default_history_count 100
 
   # TODO: Authorization should be added, users can only join some channels
   def join("channel:" <> _channel_id, _auth_msg, socket) do
+    Logger.warn(inspect(_channel_id))
+    Logger.warn(inspect(socket))
     channel = channel_from_topic(socket.topic)
     messages = MessageService.load_messages(channel, Extime.now_ts) |> Repo.preload(:user)
     unread_count = UnreadService.unread_count(socket.assigns.user, channel)
@@ -28,6 +31,8 @@ defmodule Exchat.MessageChannel do
     end
   end
   def handle_in("new_message", %{"text" => _text} = params, user, socket) do
+    Logger.warn(inspect(params))
+    Logger.warn(inspect(socket.topic))
     channel = channel_from_topic(socket.topic)
     if channel do
       changeset = Message.changeset(%Message{}, message_params(params, channel, user))

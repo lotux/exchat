@@ -21,7 +21,8 @@ defmodule Exchat.UnreadService do
   def mark_read(user, channel, ts) do
     time = Extime.to_datetime(ts)
     message = Repo.one(from Message, where: [inserted_at: ^time])
-
+    inspect("hello")
+    inspect(message)
     read_message = case Repo.get_by(UserReadMessage, user_id: user.id, channel_id: channel.id) do
       nil -> %UserReadMessage{user_id: user.id, channel_id: channel.id}
       user_read_message -> user_read_message

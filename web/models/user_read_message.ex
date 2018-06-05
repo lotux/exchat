@@ -2,8 +2,8 @@ defmodule Exchat.UserReadMessage do
   use Exchat.Web, :model
 
   schema "user_read_messages" do
-    field :message_id, :integer
-    field :latest_ts, :naive_datetime
+    field :message_id, :integer, null: false
+    field :latest_ts, :utc_datetime, null: false
     belongs_to :user, Exchat.User
     belongs_to :channel, Exchat.Channel
 

@@ -24,6 +24,12 @@ defmodule Exchat.UserController do
     render conn, "index.json", users: users
   end
 
+  def me(conn, %{}) do
+    current_id = conn.assigns.current_user.id
+    user = Repo.get(User, current_id)
+    render conn, "index.json", user: user
+  end
+
   defp notify_user_created(user) do
     payload = Exchat.UserView.render "user.json", user: user
     EventChannel.push_out "user_created", payload

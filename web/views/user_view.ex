@@ -9,6 +9,10 @@ defmodule Exchat.UserView do
     end)
   end
 
+  def render("index.json", %{user: user}) do
+    render(__MODULE__, "user.json", user: user)
+  end
+
   def render("user.json", %{user: user}) do
     %{id: user.id,
       username: User.username(user),

@@ -3,7 +3,7 @@ defmodule Exchat.Repo.Migrations.AddTypeToChannels do
 
   def up do
     alter table(:channels) do
-      add :type, :integer
+      add :type, :integer, null: false
     end
     flush()
     Exchat.Repo.update_all("channels", set: [type: 1])
